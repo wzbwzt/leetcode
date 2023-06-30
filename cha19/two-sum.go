@@ -18,7 +18,7 @@ package main
 
 复杂度：
 空间复杂度: O(1)
-时间复杂度： O(n^2), n为数组长度
+/mnt/data/joelWu/leetcode/cha10时间复杂度： O(n^2), n为数组长度
 */
 
 func twoSum(nums []int, target int) (out []int) {
