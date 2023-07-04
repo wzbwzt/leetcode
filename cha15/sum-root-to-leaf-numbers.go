@@ -1,7 +1,5 @@
 package main
 
-import "math"
-
 /*
 https://leetcode.cn/problems/sum-root-to-leaf-numbers/
 
@@ -47,7 +45,8 @@ https://leetcode.cn/problems/sum-root-to-leaf-numbers/
 `DFS`
 
 复杂度：
-
+时间复杂度：O(N)
+空间复杂度：O(log(N))
 */
 
 // Definition for a binary tree node.
@@ -58,27 +57,22 @@ type TreeNode struct {
 }
 
 func sumNumbers(root *TreeNode) int {
-	sum := 0
+	return dfs(root, 0)
 
-	line := []int{}
-
-	dfs(root, &sum, line)
-
-	return sum
 }
 
-func dfs(n *TreeNode, sum *int, line []int) int {
+func dfs(n *TreeNode, presum int) int {
 	if n == nil {
-		for i := 0; i < len(line); i++ {
-			*sum += line[i] * int(math.Pow(10, float64(len(line)-1-i)))
-		}
-		line = []int{}
-
-		return
+		return 0
 	}
-	line = append(line, n.Val)
+	sum := presum*10 + n.Val
+	if n.Left == nil && n.Right == nil {
+		return sum
+	}
 
-	left_sum := dfs(n.Left, sum, line)
-	right_sum := dfs(n.Right, sum, line)
+	left_sum := dfs(n.Left, sum)
+
+	right_sum := dfs(n.Right, sum)
+
 	return left_sum + right_sum
 }

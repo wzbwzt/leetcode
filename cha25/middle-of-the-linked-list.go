@@ -32,8 +32,8 @@ ans.val = 3, ans.next.val = 4, ans.next.next.val = 5, 以及 ans.next.next.next 
 slow走一步,fast走两步
 
 复杂度：
-
-
+时间复杂度：O(n)
+空间复杂度：O(1)
 */
 
 // Definition for singly-linked list.
