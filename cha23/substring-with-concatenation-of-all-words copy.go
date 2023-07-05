@@ -27,6 +27,7 @@ words = ["word","good","best","word"]
 /*
 思路：
 `哈希表` `双指针`
+s中截取m*k长度的子串
 按照words中每个单词的长度切割s，得到子字串
 
 
@@ -37,6 +38,39 @@ words = ["word","good","best","word"]
 空间复杂度: O(m)
 */
 
-func findSubstring(s string, words []string) []int {
+func findSubstring(s string, words []string) (out []int) {
+	if len(s) == 0 || len(words) == 0 {
+		return nil
+	}
+	n := len(s)
+	m := len(words)
+	k := len(words[0])
+	if n < m*k {
+		return nil
+	}
+	var word_map = make(map[string]int, len(words))
+	for _, word := range words {
+		word_map[word]++
+	}
+	for i := 0; i < n-m*k+1; i++ {
+		sub_s := s[i : m*k+i]
+		var sub_s_map = make(map[string]int, m)
+		for j := 0; j < m*k; j += k {
+			w := sub_s[j : j+k]
+			_, ok := word_map[w]
+			sub_s_map[w]++
+			if !ok {
+				goto lab
+			}
+		}
+		for k, v := range word_map {
+			if sub_s_map[k] != v {
+				goto lab
+			}
+		}
 
+		out = append(out, i)
+	lab:
+	}
+	return
 }
